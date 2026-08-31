@@ -1,0 +1,14 @@
+# SM Events
+
+> SM Events designs and delivers corporate team-building activities, digital tournaments, and hybrid event experiences for companies across Saudi Arabia.
+
+SM Events works with corporate clients to plan on-site team-building days, tournaments, and hybrid (in-person + digital) events. Visitors can browse available activities by category (Physical, Digital, Team Building, Challenging, Solutions), build a custom plan, and request a quote via PDF or WhatsApp.
+
+## Pages
+
+- [Home](https://smevents.example/): Activity catalog, event planning tool, and contact options.
+
+## Contact
+
+- WhatsApp: +966 57 009 8994
+- Email: s.e-for-activities@outlook.com
