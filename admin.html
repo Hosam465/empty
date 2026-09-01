@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>SM EVENTS | Admin Dashboard</title>
+    <link rel="icon" type="image/png" href="smlogo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#0D0D10',
+                        panelbg: '#17171B',
+                        arcadeyellow: '#D9A441',
+                        arcadegreen: '#3FB88A',
+                        arcadered: '#E5594E',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        tech: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background: #0D0D10; color: white; }
+        .cyber-card {
+            background: #1C1C21;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .input-field {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 0.5rem;
+            padding: 0.875rem 1.25rem;
+            color: white;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #D9A441;
+            box-shadow: 0 0 0 3px rgba(217, 164, 65, 0.15);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased overflow-x-hidden p-6">
+
+    <!-- Auth Verification Screen -->
+    <div id="auth-check" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-darkbg">
+        <div class="w-16 h-16 rounded-2xl bg-black/50 border border-white/5 flex items-center justify-center text-arcadeyellow mb-6 animate-pulse">
+            <i class="fa-solid fa-shield-halved text-3xl"></i>
+        </div>
+        <h2 class="text-xl font-bold uppercase tracking-widest text-white mb-2">Checking Access</h2>
+        <p class="text-zinc-500 text-xs tracking-widest uppercase font-mono">One moment...</p>
+    </div>
+
+    <!-- Protected Content -->
+    <div id="admin-content" class="hidden opacity-0 transition-opacity duration-500">
+        <!-- Header -->
+        <header class="max-w-7xl mx-auto cyber-card p-6 rounded-2xl mb-8 flex flex-wrap justify-between items-center gap-4">
+            <div>
+                <span class="text-2xl font-black font-tech uppercase tracking-widest text-white">SM <span class="text-arcadeyellow">Events</span></span>
+                <span class="ms-4 text-arcadegreen font-bold tracking-widest uppercase text-xs hidden sm:inline-block">Admin Panel</span>
+            </div>
+
+            <!-- Global Price Toggle Switch -->
+            <div class="flex items-center gap-3 bg-black/40 px-4 py-2 rounded-xl border border-white/10">
+                <span class="text-xs font-tech uppercase font-bold text-zinc-300">Show Prices On Website</span>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="price-toggle" class="sr-only peer" onchange="window.togglePriceSetting(this.checked)">
+                    <div class="w-11 h-6 bg-zinc-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-arcadegreen"></div>
+                </label>
+            </div>
+
+            <div class="flex items-center gap-6">
+                <button onclick="window.logoutAdmin()" class="text-arcadered hover:text-red-400 transition-colors text-xs font-bold font-tech uppercase tracking-widest"><i class="fa-solid fa-power-off me-2"></i> Log Out</button>
+                <a href="index.html" class="text-zinc-400 hover:text-white transition-colors text-xs font-bold font-tech uppercase tracking-widest border-s border-white/10 ps-6"><i class="fa-solid fa-arrow-left me-2"></i> Return to Site</a>
+            </div>
+        </header>
+
+        <!-- Main Dashboard -->
+        <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Form Section -->
+            <div class="lg:col-span-1 cyber-card p-8 rounded-[2rem] h-fit sticky top-6">
+                <h3 id="form-title" class="text-xl font-bold font-display mb-8 text-white flex items-center">
+                    <i class="fa-solid fa-plus me-3 text-arcadeyellow"></i> Add New Activity
+                </h3>
+
+                <form id="activity-form" class="space-y-5">
+                    <input type="hidden" id="edit-id" value="">
+                    <div>
+                        <label class="block text-[10px] font-bold font-tech text-zinc-400 uppercase tracking-widest mb-2">Activity Name *</label>
+                        <input type="text" id="admin-name" required class="input-field font-tech">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold font-tech text-zinc-400 uppercase tracking-widest mb-2">Category *</label>
+                        <select id="admin-category" required class="input-field py-[0.85rem] cursor-pointer appearance-none bg-black font-tech text-arcadeyellow">
+                            <option value="Physical">Physical (أنشطة بدنية)</option>
+                            <option value="Digital">Digital (أنشطة رقمية)</option>
+                            <option value="Team Building">Team Building (بناء الفريق)</option>
+                            <option value="Challenging">Challenging (تحديات)</option>
+                            <option value="Solutions">Solutions (حلول متكاملة)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold font-tech text-zinc-400 uppercase tracking-widest mb-2">Image URL</label>
+                        <input type="url" id="admin-image-url" placeholder="https://..." class="input-field font-tech">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold font-tech text-zinc-400 uppercase tracking-widest mb-2">English Description *</label>
+                        <textarea id="admin-desc" required rows="3" class="input-field resize-none font-tech"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold font-tech text-arcadeyellow uppercase tracking-widest mb-2">Arabic Description (الوصف بالعربية)</label>
+                        <textarea id="admin-desc-ar" dir="rtl" rows="3" placeholder="اكتب الوصف باللغة العربية..." class="input-field resize-none font-tech"></textarea>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] font-bold font-tech text-zinc-400 uppercase tracking-widest mb-2">Price (SAR) *</label>
+                            <input type="number" id="admin-price" required class="input-field font-tech">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold font-tech text-zinc-400 uppercase tracking-widest mb-2">Icon</label>
+                            <select id="admin-icon" class="input-field py-[0.85rem] cursor-pointer appearance-none bg-black font-tech">
+                                <option value="fa-gamepad">Gamepad</option>
+                                <option value="fa-bullseye">Bullseye</option>
+                                <option value="fa-microchip">Microchip</option>
+                                <option value="fa-rocket">Rocket</option>
+                                <option value="fa-vr-cardboard">VR/AR</option>
+                                <option value="fa-puzzle-piece">Puzzle</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 pt-4">
+                        <button type="submit" id="submit-btn" class="flex-1 py-4 rounded-xl bg-arcadeyellow text-black font-bold font-tech text-xs uppercase tracking-widest hover:opacity-90 transition-all">
+                            Save Activity
+                        </button>
+                        <button type="button" id="cancel-btn" onclick="resetForm()" class="hidden px-6 rounded-xl bg-white/10 text-white font-black font-tech text-xs uppercase tracking-widest hover:bg-white/20 transition-all">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- List Section -->
+            <div class="lg:col-span-2 cyber-card p-8 rounded-[2rem] min-h-[500px]">
+                <div class="flex justify-between items-center mb-8 pb-4 border-b border-white/10">
+                    <h3 class="text-2xl font-bold font-display text-white tracking-tight">Your Activities</h3>
+                    <span id="activity-count" class="bg-arcadegreen/20 text-arcadegreen px-4 py-1 rounded-full text-xs font-tech font-bold tracking-widest">0 Activities</span>
+                </div>
+
+                <div id="loading-spinner" class="flex flex-col items-center justify-center py-20 text-arcadeyellow font-tech font-bold animate-pulse">
+                    <i class="fa-solid fa-satellite-dish fa-spin mb-4 text-3xl"></i>
+                    <span class="tracking-widest uppercase text-xs">Syncing Database...</span>
+                </div>
+
+                <div id="activities-list" class="space-y-4"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, orderBy, query, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC_8RUItmr8GHEnjwt0pHtstAjQsx6PFHA",
+            authDomain: "smwebsite-0.firebaseapp.com",
+            projectId: "smwebsite-0",
+            storageBucket: "smwebsite-0.firebasestorage.app",
+            messagingSenderId: "750807172857",
+            appId: "1:750807172857:web:e36a69bbb7360679fb4428",
+            measurementId: "G-F46R6HJT0B"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        let activities = [];
+
+        const DEFAULT_ACTIVITY_IMAGES = {
+            'Wooden Tower': 'https://images.unsplash.com/photo-1539477192933-1a7dde04aa77?auto=format&fit=crop&w=200&q=60',
+            'Pipeline': 'https://images.unsplash.com/photo-1752681304960-bd4e018a04bb?auto=format&fit=crop&w=200&q=60',
+            'Marshmallow Tower': 'https://images.unsplash.com/photo-1613549422147-9e4b76b4649b?auto=format&fit=crop&w=200&q=60',
+            'Traffic Jam': 'https://images.unsplash.com/photo-1775323137421-7f1e74b98e29?auto=format&fit=crop&w=200&q=60',
+            'Rug & Balls': 'https://images.unsplash.com/photo-1557734864-c78b6dfef1b1?auto=format&fit=crop&w=200&q=60',
+            'Tug of War': 'https://images.unsplash.com/photo-1748698534492-746f3950d9ca?auto=format&fit=crop&w=200&q=60',
+            'Hula Hoop Pass': 'https://images.unsplash.com/photo-1774599661329-d9a2f999d1c4?auto=format&fit=crop&w=200&q=60',
+            'Balls and Stick': 'https://images.unsplash.com/photo-1539345574544-27e5407b42aa?auto=format&fit=crop&w=200&q=60',
+            'Gold Mine': 'https://images.unsplash.com/photo-1761412105162-97f2f2d28407?auto=format&fit=crop&w=200&q=60',
+            'Mystery Box': 'https://images.unsplash.com/photo-1630397794907-a6574f227a3d?auto=format&fit=crop&w=200&q=60',
+            'XO Game (Tic-Tac-Toe Relay)': 'https://images.unsplash.com/photo-1768319184064-d39a6a196452?auto=format&fit=crop&w=200&q=60',
+            'Infinite Loop': 'https://images.unsplash.com/photo-1591195852446-b206db137197?auto=format&fit=crop&w=200&q=60',
+            'River Crossing': 'https://images.unsplash.com/photo-1597149560479-3c7d7b96d6bc?auto=format&fit=crop&w=200&q=60',
+            'Ball Control': 'https://images.unsplash.com/photo-1560272564-c83b66b1ad12?auto=format&fit=crop&w=200&q=60',
+            'The Catch': 'https://images.unsplash.com/photo-1520352408661-83957c1379d2?auto=format&fit=crop&w=200&q=60',
+            'MC Speaker (Arabic/English)': 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=200&q=60',
+            'Spin the Wheel': 'https://images.unsplash.com/photo-1573788583106-acf6c8f3f0b5?auto=format&fit=crop&w=200&q=60'
+        };
+
+        function getDefaultActivityImage(name) {
+            if (!name) return '';
+            const key = Object.keys(DEFAULT_ACTIVITY_IMAGES).find(k => k.toLowerCase() === name.toLowerCase());
+            return key ? DEFAULT_ACTIVITY_IMAGES[key] : '';
+        }
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                try {
+                    const userDoc = await getDoc(doc(db, "users", user.uid));
+                    if (userDoc.exists() && userDoc.data().isAdmin === true) {
+                        document.getElementById('auth-check').classList.add('hidden');
+                        const adminContent = document.getElementById('admin-content');
+                        adminContent.classList.remove('hidden');
+                        setTimeout(() => adminContent.classList.remove('opacity-0'), 50);
+
+                        const configDoc = await getDoc(doc(db, "settings", "globalConfig"));
+                        if (configDoc.exists()) {
+                            document.getElementById('price-toggle').checked = configDoc.data().showPrices ?? true;
+                        }
+
+                        fetchActivities();
+                    } else {
+                        window.location.replace('index.html');
+                    }
+                } catch (error) {
+                    window.location.replace('index.html');
+                }
+            } else {
+                window.location.replace('index.html');
+            }
+        });
+
+        window.togglePriceSetting = async (showPrices) => {
+            try {
+                await setDoc(doc(db, "settings", "globalConfig"), { showPrices: showPrices }, { merge: true });
+            } catch (error) {
+                console.error("Failed to update setting:", error);
+            }
+        };
+
+        window.logoutAdmin = async () => { try { await signOut(auth); } catch (error) {} };
+
+        async function fetchActivities() {
+            try {
+                const q = query(collection(db, "activities"), orderBy("createdAt", "desc"));
+                const querySnapshot = await getDocs(q);
+                activities = [];
+                querySnapshot.forEach((doc) => activities.push({ id: doc.id, ...doc.data() }));
+
+                document.getElementById('loading-spinner').classList.add('hidden');
+                document.getElementById('activity-count').innerText = `${activities.length} Activities`;
+                renderActivities();
+            } catch (error) {}
+        }
+
+        function renderActivities() {
+            const list = document.getElementById('activities-list');
+            list.innerHTML = '';
+            if(activities.length === 0) {
+                list.innerHTML = `<p class="text-zinc-500 text-center py-10 font-tech uppercase tracking-widest text-xs font-bold">No activities added yet.</p>`;
+                return;
+            }
+            activities.forEach((item) => {
+                const thumb = item.imageUrl || getDefaultActivityImage(item.name) || '';
+                let html = `
+                    <div class="bg-black/40 border border-white/10 p-5 rounded-2xl flex items-center justify-between group hover:bg-white/5 transition-all">
+                        <div class="flex items-center gap-5">
+                            <div class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-xl text-zinc-400 overflow-hidden">
+                                ${thumb ? `<img src="${thumb}" referrerpolicy="no-referrer" class="w-full h-full object-cover rounded-xl" alt="${item.name}">` : `<i class="fa-solid ${item.icon}"></i>`}
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h4 class="font-black text-white font-tech uppercase tracking-wider text-sm">${item.name}</h4>
+                                    <span class="text-[9px] font-tech font-bold px-2 py-0.5 rounded bg-arcadeyellow/20 text-arcadeyellow border border-arcadeyellow/30 uppercase">${item.category || 'Physical'}</span>
+                                </div>
+                                <p class="text-arcadeyellow font-tech text-xs tracking-widest mt-1">SAR ${Number(item.price).toLocaleString()}</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <button onclick="window.prepareEdit('${item.id}')" class="w-10 h-10 rounded-xl bg-white/5 text-zinc-400 hover:text-arcadeyellow transition-all flex items-center justify-center">
+                                <i class="fa-solid fa-pen text-xs"></i>
+                            </button>
+                            <button onclick="window.deleteActivity('${item.id}')" class="w-10 h-10 rounded-xl bg-white/5 text-zinc-400 hover:text-arcadered transition-all flex items-center justify-center">
+                                <i class="fa-solid fa-trash text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                list.innerHTML += html;
+            });
+        }
+
+        document.getElementById('activity-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const editId = document.getElementById('edit-id').value;
+            const payload = {
+                name: document.getElementById('admin-name').value,
+                category: document.getElementById('admin-category').value,
+                desc: document.getElementById('admin-desc').value,
+                descAr: document.getElementById('admin-desc-ar').value || document.getElementById('admin-desc').value,
+                price: parseFloat(document.getElementById('admin-price').value),
+                icon: document.getElementById('admin-icon').value,
+                imageUrl: document.getElementById('admin-image-url').value || null
+            };
+            try {
+                if (editId) {
+                    await updateDoc(doc(db, "activities", editId), payload);
+                } else {
+                    payload.createdAt = Date.now();
+                    await addDoc(collection(db, "activities"), payload);
+                }
+                window.resetForm();
+                await fetchActivities();
+            } catch (error) {}
+        });
+
+        window.prepareEdit = (id) => {
+            const item = activities.find(a => a.id === id);
+            if(!item) return;
+            document.getElementById('edit-id').value = item.id;
+            document.getElementById('admin-name').value = item.name;
+            document.getElementById('admin-category').value = item.category || 'Physical';
+            document.getElementById('admin-desc').value = item.desc;
+            document.getElementById('admin-desc-ar').value = item.descAr || '';
+            document.getElementById('admin-price').value = item.price;
+            document.getElementById('admin-icon').value = item.icon || 'fa-gamepad';
+            document.getElementById('admin-image-url').value = item.imageUrl || '';
+            document.getElementById('form-title').innerHTML = '<i class="fa-solid fa-pen me-3 text-arcadeyellow"></i> Edit Activity';
+            document.getElementById('cancel-btn').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        window.deleteActivity = async (id) => {
+            if(!confirm("Delete this activity?")) return;
+            try {
+                await deleteDoc(doc(db, "activities", id));
+                await fetchActivities();
+            } catch (error) {}
+        };
+
+        window.resetForm = () => {
+            document.getElementById('activity-form').reset();
+            document.getElementById('edit-id').value = '';
+            document.getElementById('form-title').innerHTML = '<i class="fa-solid fa-plus me-3 text-arcadeyellow"></i> Add New Activity';
+            document.getElementById('cancel-btn').classList.add('hidden');
+        };
+    </script>
+</body>
+</html>

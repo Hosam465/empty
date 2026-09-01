@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth" id="html-root">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +16,7 @@
     <meta name="twitter:title" content="SM Events | Corporate Team-Building & Event Activities">
     <meta name="twitter:description" content="Team-building activities, digital tournaments, and hybrid events designed to bring your team closer together.">
     <meta name="twitter:image" content="https://smevents.example/smlogo.png">
-    <link rel="icon" type="image/png" href="/smlogo.png">
+    <link rel="icon" type="image/png" href="smlogo.png">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -38,11 +38,1125 @@
         }]
     }
     </script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#0D0D10',
+                        panelbg: '#17171B',
+                        cardbg: '#1C1C21',
+                        arcadeyellow: '#D9A441',
+                        arcadegreen: '#3FB88A',
+                        arcadered: '#E5594E',
+                        bordergray: 'rgba(255, 255, 255, 0.08)'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Cairo', 'sans-serif'],
+                        display: ['Space Grotesk', 'Cairo', 'sans-serif'],
+                        tech: ['Inter', 'Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0D0D10; }
+        ::-webkit-scrollbar-thumb { background: #2B2B31; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #D9A441; }
+
+        .clip-button {
+            border-radius: 0.75rem;
+        }
+
+        .cyber-card {
+            background: #1C1C21;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .cyber-card:hover {
+            border-color: rgba(217, 164, 65, 0.35);
+            box-shadow: 0 12px 30px -12px rgba(0, 0, 0, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .input-field {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 0.5rem;
+            padding: 0.875rem 1.25rem;
+            color: white;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #D9A441;
+            box-shadow: 0 0 0 3px rgba(217, 164, 65, 0.15);
+        }
+
+        .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1920&q=70');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .footer-cta-bg {
+            background-image: url('https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=1920&q=70');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .scroll-reveal.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
+
 <body class="bg-darkbg text-white font-sans antialiased selection:bg-arcadeyellow selection:text-black overflow-x-hidden">
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+
+    <!-- FLOATING WHATSAPP BUTTON -->
+    <a href="https://wa.me/966570098994" target="_blank" rel="noopener noreferrer"
+       class="fixed bottom-6 end-6 z-50 bg-[#25D366] hover:bg-[#20BD5A] text-white p-4 rounded-full shadow-lg hover:scale-105 transition-all duration-300 flex items-center justify-center group"
+       title="Chat on WhatsApp">
+        <i class="fa-brands fa-whatsapp text-3xl"></i>
+        <span class="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-500 ease-in-out whitespace-nowrap text-xs font-tech font-bold uppercase tracking-widest ps-0 group-hover:ps-2" data-i18n="chatWhatsapp">Chat with Us</span>
+    </a>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="fixed top-0 w-full z-40 bg-darkbg/90 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+            <div class="flex items-center gap-4 cursor-pointer group" onclick="window.scrollTo(0,0)">
+                <img src="smlogo.png" alt="SM Events Logo" class="w-14 h-14 object-contain group-hover:scale-105 transition-transform duration-300">
+                <span class="text-2xl font-black font-tech tracking-widest uppercase text-white">SM <span class="text-arcadeyellow">Events</span></span>
+            </div>
+
+            <div class="hidden md:flex items-center gap-8 text-xs font-bold font-tech uppercase tracking-widest text-zinc-300">
+                <a href="#hero" class="hover:text-arcadeyellow transition-all" data-i18n="navServices">Services</a>
+                <a href="#how-it-works" class="hover:text-arcadeyellow transition-all" data-i18n="navHow">How It Works</a>
+                <a href="#shop" class="hover:text-arcadeyellow transition-all" data-i18n="navEvents">Events</a>
+
+                <button onclick="window.toggleLanguage()" class="bg-white/10 hover:bg-arcadeyellow hover:text-black border border-white/20 text-arcadeyellow font-tech px-3 py-1.5 rounded transition-all duration-300 flex items-center gap-2">
+                    <i class="fa-solid fa-globe"></i>
+                    <span id="lang-btn-text">العربية</span>
+                </button>
+
+                <div id="auth-buttons" class="flex items-center gap-8 ps-8 border-s border-white/10">
+                    <button onclick="toggleLogin()" class="hover:text-arcadeyellow transition-colors"><i class="fa-solid fa-right-to-bracket me-2"></i> <span data-i18n="btnLogin">Login</span></button>
+                    <button onclick="toggleRegister()" class="hover:text-arcadeyellow transition-colors"><i class="fa-solid fa-user-plus me-2"></i> <span data-i18n="btnRegister">Register</span></button>
+                </div>
+
+                <div id="user-profile" class="hidden items-center gap-8 ps-8 border-s border-white/10">
+                    <span id="welcome-text" class="text-arcadeyellow font-black font-tech">
+                        <i class="fa-solid fa-user-astronaut me-2 text-zinc-400"></i> Welcome
+                    </span>
+                    <button onclick="window.logoutUser()" class="hover:text-arcadered transition-colors"><i class="fa-solid fa-power-off me-2"></i> <span data-i18n="btnLogout">Logout</span></button>
+                </div>
+
+                <a href="admin.html" id="admin-dashboard-btn" class="hidden hover:text-arcadegreen transition-colors"><i class="fa-solid fa-shield-halved me-2"></i> Admin</a>
+            </div>
+
+            <div class="flex items-center gap-6">
+                <button onclick="toggleCart()" class="relative text-zinc-300 hover:text-arcadeyellow transition-colors group p-2">
+                    <i class="fa-solid fa-layer-group text-2xl group-hover:scale-110 transition-transform"></i>
+                    <span id="cart-count" class="absolute -top-1 -end-1 bg-arcadegreen text-black text-[11px] w-5 h-5 rounded-full flex items-center justify-center font-black shadow-sm">0</span>
+                </button>
+                <a href="#shop" class="hidden sm:inline-flex px-8 py-3 bg-arcadeyellow text-black font-bold font-sans text-xs uppercase tracking-wide clip-button hover:opacity-90 transition-all duration-300 shadow-md" data-i18n="buildBlueprint">
+                    Plan Your Event
+                </a>
+                <button onclick="window.toggleMobileMenu()" id="mobile-menu-btn" class="md:hidden text-zinc-300 hover:text-arcadeyellow transition-colors p-2 text-2xl" aria-label="Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- MOBILE MENU PANEL -->
+        <div id="mobile-menu" class="hidden md:hidden flex-col bg-darkbg/98 backdrop-blur-md border-t border-white/10 px-6 py-6 gap-6 max-h-[calc(100vh-6rem)] overflow-y-auto">
+            <div class="flex flex-col gap-5 text-sm font-bold font-tech uppercase tracking-widest text-zinc-300">
+                <a href="#hero" onclick="window.closeMobileMenu()" class="hover:text-arcadeyellow transition-all" data-i18n="navServices">Services</a>
+                <a href="#how-it-works" onclick="window.closeMobileMenu()" class="hover:text-arcadeyellow transition-all" data-i18n="navHow">How It Works</a>
+                <a href="#shop" onclick="window.closeMobileMenu()" class="hover:text-arcadeyellow transition-all" data-i18n="navEvents">Events</a>
+            </div>
+
+            <button onclick="window.toggleLanguage()" class="w-full bg-white/10 hover:bg-arcadeyellow hover:text-black border border-white/20 text-arcadeyellow font-tech px-3 py-2.5 rounded transition-all duration-300 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-globe"></i>
+                <span id="lang-btn-text-mobile">العربية</span>
+            </button>
+
+            <div class="border-t border-white/10 pt-6 flex flex-col gap-5 text-sm font-bold font-tech uppercase tracking-widest">
+                <div id="auth-buttons-mobile" class="flex flex-col gap-5">
+                    <button onclick="toggleLogin()" class="text-start hover:text-arcadeyellow transition-colors"><i class="fa-solid fa-right-to-bracket me-2"></i> <span data-i18n="btnLogin">Login</span></button>
+                    <button onclick="toggleRegister()" class="text-start hover:text-arcadeyellow transition-colors"><i class="fa-solid fa-user-plus me-2"></i> <span data-i18n="btnRegister">Register</span></button>
+                </div>
+
+                <div id="user-profile-mobile" class="hidden flex-col gap-5">
+                    <span id="welcome-text-mobile" class="text-arcadeyellow font-black font-tech">
+                        <i class="fa-solid fa-user-astronaut me-2 text-zinc-400"></i> Welcome
+                    </span>
+                    <button onclick="window.logoutUser()" class="text-start hover:text-arcadered transition-colors"><i class="fa-solid fa-power-off me-2"></i> <span data-i18n="btnLogout">Logout</span></button>
+                </div>
+
+                <a href="admin.html" id="admin-dashboard-btn-mobile" class="hidden hover:text-arcadegreen transition-colors"><i class="fa-solid fa-shield-halved me-2"></i> Admin</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="hero-bg relative pt-40 pb-32 px-6 min-h-screen flex flex-col justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-darkbg/75"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-darkbg via-darkbg/50 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-darkbg/40 via-transparent to-transparent"></div>
+
+        <div class="max-w-3xl mx-auto w-full relative z-10 text-center">
+            <div class="inline-flex items-center gap-3 cyber-card rounded-full px-5 py-2.5 mb-10 cursor-default">
+                <div class="w-2 h-2 rounded-full bg-arcadeyellow"></div>
+                <span class="text-arcadeyellow text-[11px] font-semibold font-tech tracking-widest uppercase" data-i18n="heroTag">Corporate Team Experiences</span>
+            </div>
+
+            <h1 class="text-5xl md:text-7xl font-bold font-display text-white leading-[1.05] tracking-tight mb-8">
+                <span data-i18n="heroTitle1">The Event That</span> <br>
+                <span class="text-arcadeyellow" data-i18n="heroTitle2">Unites</span> <br>
+                <span data-i18n="heroTitle3">Your Team</span>
+            </h1>
+
+            <p class="text-zinc-300 text-lg font-sans max-w-xl mx-auto mb-12 leading-relaxed" data-i18n="heroDesc">
+                We design team-building activities, digital tournaments, and hybrid events that bring your people together and build a stronger workplace culture.
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#shop" class="px-9 py-4 bg-arcadeyellow text-black font-bold font-sans text-base clip-button shadow-md hover:opacity-90 transition-all" data-i18n="btnInitiate">
+                    Get Started
+                </a>
+                <button onclick="document.getElementById('how-it-works').scrollIntoView({behavior:'smooth'})" class="px-9 py-4 border border-white/20 hover:border-white/40 text-white font-semibold font-sans text-base clip-button hover:bg-white/5 transition-all" data-i18n="btnHowItWorks">
+                    How It Works
+                </button>
+            </div>
+
+            <div class="inline-flex items-center mt-12 bg-darkbg/80 backdrop-blur-sm border border-arcadeyellow/30 text-arcadeyellow text-[11px] font-semibold font-tech px-5 py-2.5 rounded-xl">
+                <i class="fa-solid fa-people-group me-3"></i> Built For Real Teams
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS SECTION -->
+    <section id="how-it-works" class="relative py-28 px-6 z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold font-display text-white leading-[1.1] tracking-tight mb-5" data-i18n="howTitle">How It Works</h2>
+                <p class="text-zinc-400 font-sans text-lg" data-i18n="howSub">From first message to event day, in three simple steps.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="cyber-card rounded-2xl p-8 scroll-reveal">
+                    <div class="w-11 h-11 rounded-lg bg-arcadeyellow text-black font-display font-bold text-xl flex items-center justify-center mb-6">1</div>
+                    <h3 class="text-xl font-bold font-display text-white mb-3" data-i18n="howStep1Title">Tell Us About Your Event</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed font-sans" data-i18n="howStep1Desc">Share your headcount, date, and goals — corporate offsite, team celebration, or something else entirely.</p>
+                </div>
+                <div class="cyber-card rounded-2xl p-8 scroll-reveal">
+                    <div class="w-11 h-11 rounded-lg bg-arcadeyellow text-black font-display font-bold text-xl flex items-center justify-center mb-6">2</div>
+                    <h3 class="text-xl font-bold font-display text-white mb-3" data-i18n="howStep2Title">Pick Your Activities</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed font-sans" data-i18n="howStep2Desc">Browse physical, digital, and team-building activities below and add the ones that fit to your plan.</p>
+                </div>
+                <div class="cyber-card rounded-2xl p-8 scroll-reveal">
+                    <div class="w-11 h-11 rounded-lg bg-arcadeyellow text-black font-display font-bold text-xl flex items-center justify-center mb-6">3</div>
+                    <h3 class="text-xl font-bold font-display text-white mb-3" data-i18n="howStep3Title">We Handle The Rest</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed font-sans" data-i18n="howStep3Desc">Send your plan our way and our team takes care of setup, staffing, and delivery on the day.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SHOP / MODULES SECTION -->
+    <section id="shop" class="relative py-32 px-6 min-h-screen z-10">
+        <div class="max-w-7xl mx-auto relative">
+
+            <div class="flex flex-col lg:flex-row justify-between items-end mb-20 gap-8">
+                <div>
+                    <h2 class="text-5xl md:text-6xl font-bold font-display text-white leading-[1.05] tracking-tight mb-6">
+                        <span data-i18n="shopTitle1">Activities Built</span> <br> <span class="text-arcadeyellow" data-i18n="shopTitle2">To Bond Your Team</span>
+                    </h2>
+                    <p class="text-zinc-400 font-sans text-lg max-w-xl" data-i18n="shopSub">Pick the activities that fit your event and add them to your plan. We'll take care of the rest.</p>
+                </div>
+
+                <!-- Category Filter Buttons -->
+                <div class="flex flex-wrap gap-3 cyber-card p-2 rounded-xl">
+                    <button onclick="window.filterCategory('All')" id="cat-btn-All" class="cat-btn px-6 py-3 bg-arcadeyellow text-black font-tech font-bold text-xs rounded-lg uppercase tracking-widest transition-all" data-i18n="catAll">All Activities</button>
+                    <button onclick="window.filterCategory('Physical')" id="cat-btn-Physical" class="cat-btn px-6 py-3 bg-transparent text-zinc-400 hover:text-white font-tech font-bold text-xs rounded-lg uppercase tracking-widest transition-all" data-i18n="catPhysical">Physical</button>
+                    <button onclick="window.filterCategory('Digital')" id="cat-btn-Digital" class="cat-btn px-6 py-3 bg-transparent text-zinc-400 hover:text-white font-tech font-bold text-xs rounded-lg uppercase tracking-widest transition-all" data-i18n="catDigital">Digital</button>
+                    <button onclick="window.filterCategory('Team Building')" id="cat-btn-Team-Building" class="cat-btn px-6 py-3 bg-transparent text-zinc-400 hover:text-white font-tech font-bold text-xs rounded-lg uppercase tracking-widest transition-all" data-i18n="catTeamBuilding">Team Building</button>
+                    <button onclick="window.filterCategory('Challenging')" id="cat-btn-Challenging" class="cat-btn px-6 py-3 bg-transparent text-zinc-400 hover:text-white font-tech font-bold text-xs rounded-lg uppercase tracking-widest transition-all" data-i18n="catChallenging">Challenging</button>
+                    <button onclick="window.filterCategory('Solutions')" id="cat-btn-Solutions" class="cat-btn px-6 py-3 bg-transparent text-zinc-400 hover:text-white font-tech font-bold text-xs rounded-lg uppercase tracking-widest transition-all" data-i18n="catSolutions">Solutions</button>
+                </div>
+            </div>
+
+            <div id="loading-spinner" class="flex flex-col items-center justify-center py-32 text-arcadeyellow font-tech font-bold animate-pulse">
+                <i class="fa-solid fa-satellite-dish fa-spin mb-4 text-4xl"></i>
+                <span class="tracking-widest uppercase text-sm" data-i18n="syncingDb">Loading activities...</span>
+            </div>
+
+            <div id="shop-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"></div>
+        </div>
+    </section>
+
+    <!-- FOOTER CTA -->
+    <section id="footer-cta" class="footer-cta-bg relative py-28 px-6 z-10 overflow-hidden">
+        <div class="absolute inset-0 bg-darkbg/80"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-darkbg via-transparent to-darkbg/40"></div>
+
+        <div class="max-w-2xl mx-auto relative z-10 text-center scroll-reveal">
+            <h2 class="text-3xl md:text-4xl font-bold font-display text-white mb-5 leading-tight" data-i18n="ctaTitle">Ready To Bring Your Team Together?</h2>
+            <p class="text-zinc-300 font-sans mb-10" data-i18n="ctaSub">Tell us about your event and we'll help you build the right mix of activities.</p>
+            <a href="#shop" class="inline-flex px-9 py-4 bg-arcadeyellow text-black font-bold font-sans text-base clip-button shadow-md hover:opacity-90 transition-all" data-i18n="ctaBtn">
+                Start Planning
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="relative border-t border-white/10 py-12 z-10 bg-darkbg">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-start">
+            <div>
+                <span class="text-xl font-black font-tech tracking-widest uppercase text-white">SM <span class="text-arcadeyellow">Events</span></span>
+                <p class="text-[10px] font-tech text-zinc-500 font-bold tracking-widest uppercase mt-2">&copy; <span id="footer-year">2026</span> Premium Corporate Entertainment.</p>
+            </div>
+            <div class="text-[9px] font-tech text-zinc-400 font-bold tracking-[0.2em] uppercase bg-white/5 px-6 py-3 rounded-xl border border-white/10">
+                Built By <span class="text-arcadeyellow ms-1">Hossam Sayed</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SLIDE-OUT CART -->
+    <div id="cart-sidebar" class="fixed inset-y-0 end-0 w-full sm:w-[450px] bg-panelbg border-s border-white/10 z-50 transform translate-x-full transition-transform duration-500 flex flex-col justify-between shadow-2xl">
+        <div class="p-10 h-full flex flex-col">
+            <div class="flex items-center justify-between border-b border-white/10 pb-8 mb-8">
+                <div>
+                    <h3 class="text-3xl font-bold font-display text-white"><span data-i18n="cartTitle1">Your</span> <span class="text-arcadeyellow" data-i18n="cartTitle2">Event Plan</span></h3>
+                    <p class="text-[11px] text-zinc-400 font-tech font-semibold uppercase tracking-widest mt-2" data-i18n="cartSub">Selected Activities</p>
+                </div>
+                <button onclick="toggleCart()" class="text-zinc-400 hover:text-white transition-colors w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+
+            <div id="cart-items" class="flex-grow overflow-y-auto pe-4 space-y-4"></div>
+
+            <div class="border-t border-white/10 pt-8 mt-8 bg-black/40 -mx-10 -mb-10 p-10">
+                <div id="cart-total-container" class="flex justify-between items-end mb-8">
+                    <span class="text-zinc-400 text-[11px] font-tech font-semibold uppercase tracking-widest mb-1" data-i18n="totalCost">Estimated Total</span>
+                    <span id="cart-total" class="text-4xl font-bold font-tech text-arcadeyellow">SAR 0</span>
+                </div>
+                <button onclick="window.openCheckout()" class="w-full py-5 clip-button bg-arcadeyellow text-black font-bold font-sans text-base uppercase tracking-wide hover:opacity-90 transition-all duration-300" data-i18n="initCheckout">
+                    Continue
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOGIN & REGISTER MODALS -->
+    <div id="login-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[60] hidden flex items-center justify-center p-6 opacity-0 transition-opacity duration-300">
+        <div class="cyber-card w-full max-w-md p-10 rounded-[2rem] relative border border-white/20" id="login-card">
+            <button onclick="toggleLogin()" class="absolute top-6 end-6 text-zinc-400 hover:text-white w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <div class="mb-10 text-center">
+                <i class="fa-solid fa-user text-4xl text-arcadeyellow mb-4"></i>
+                <h3 class="text-3xl font-bold font-display text-white">Welcome Back</h3>
+                <p class="text-xs text-zinc-400 font-tech tracking-wide mt-1">Sign in to manage your event plan</p>
+            </div>
+            <button type="button" onclick="window.googleAuth()" class="w-full py-4 clip-button bg-white text-black font-bold font-sans uppercase tracking-wide hover:bg-zinc-200 transition-all flex items-center justify-center text-xs mb-8">
+                <i class="fa-brands fa-google me-3 text-lg"></i> Continue with Google
+            </button>
+            <form id="login-form" class="space-y-5">
+                <div><input type="email" id="login-email" placeholder="Email" required class="input-field font-tech"></div>
+                <div><input type="password" id="login-password" placeholder="Password" required class="input-field font-tech"></div>
+                <button type="submit" id="login-submit-btn" class="w-full mt-4 py-4 clip-button bg-arcadeyellow text-black font-bold font-sans text-sm uppercase tracking-wide hover:opacity-90 transition-all">
+                    Sign In
+                </button>
+            </form>
+            <p class="text-center text-xs text-zinc-500 font-tech mt-6">
+                Don't have an account? <button onclick="toggleLogin(); toggleRegister();" class="text-arcadeyellow hover:underline">Create one</button>
+            </p>
+        </div>
+    </div>
+
+    <div id="register-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[60] hidden flex items-center justify-center p-6 opacity-0 transition-opacity duration-300">
+        <div class="cyber-card w-full max-w-md p-10 rounded-[2rem] relative border border-white/20" id="register-card">
+            <button onclick="toggleRegister()" class="absolute top-6 end-6 text-zinc-400 hover:text-white w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <div class="mb-10 text-center">
+                <i class="fa-solid fa-user-plus text-4xl text-arcadegreen mb-4"></i>
+                <h3 class="text-3xl font-bold font-display text-white">Create Your Account</h3>
+                <p class="text-xs text-zinc-400 font-tech tracking-wide mt-1">Sign up to start planning your event</p>
+            </div>
+            <button type="button" onclick="window.googleAuth()" class="w-full py-4 clip-button bg-white text-black font-bold font-sans uppercase tracking-wide hover:bg-zinc-200 transition-all flex items-center justify-center text-xs mb-8">
+                <i class="fa-brands fa-google me-3 text-lg"></i> Continue with Google
+            </button>
+            <form id="register-form" class="space-y-5">
+                <div><input type="text" id="reg-name" placeholder="Full Name" required class="input-field font-tech"></div>
+                <div><input type="email" id="reg-email" placeholder="Email" required class="input-field font-tech"></div>
+                <div><input type="password" id="reg-password" placeholder="Password" required class="input-field font-tech"></div>
+                <button type="submit" id="reg-submit-btn" class="w-full mt-4 py-4 clip-button bg-arcadegreen text-black font-bold font-sans text-sm uppercase tracking-wide hover:opacity-90 transition-all">
+                    Create Account
+                </button>
+            </form>
+            <p class="text-center text-xs text-zinc-500 font-tech mt-6">
+                Already have an account? <button onclick="toggleRegister(); toggleLogin();" class="text-arcadeyellow hover:underline">Sign in</button>
+            </p>
+        </div>
+    </div>
+
+    <!-- CHECKOUT MODAL -->
+    <div id="checkout-modal" class="fixed inset-0 bg-black/90 backdrop-blur-2xl z-[70] hidden flex items-center justify-center p-6 overflow-y-auto">
+        <div class="w-full max-w-5xl rounded-[2rem] relative shadow-2xl my-8 border border-white/10 overflow-hidden flex flex-col md:flex-row bg-panelbg">
+            <button onclick="toggleCheckout()" class="absolute top-6 end-6 text-zinc-400 hover:text-white z-20 bg-black/50 w-10 h-10 rounded-full flex items-center justify-center"><i class="fa-solid fa-xmark text-xl"></i></button>
+
+            <div class="w-full md:w-1/2 bg-white/5 p-12 border-e border-white/5 flex flex-col justify-between">
+                <div>
+                    <h3 class="text-4xl font-bold font-display mb-3 text-white"><span data-i18n="genTitle1">Confirm Your</span> <span class="text-arcadeyellow" data-i18n="genTitle2">Selection</span></h3>
+                    <p class="text-zinc-400 font-tech text-sm tracking-wide mb-10" data-i18n="genSub">Review your chosen activities and send us your details to get a tailored quote.</p>
+
+                    <h4 class="font-bold font-tech text-zinc-400 mb-5 uppercase tracking-widest text-[11px] border-b border-white/10 pb-3" data-i18n="manifestSummary">Order Summary</h4>
+                    <div id="checkout-items" class="space-y-4 mb-8 text-sm max-h-[40vh] overflow-y-auto pe-3 font-tech"></div>
+                </div>
+                <div id="checkout-total-container" class="pt-8 border-t border-white/10">
+                    <div class="flex justify-between items-end text-lg font-bold font-tech">
+                        <span class="text-zinc-400 text-xs tracking-widest uppercase mb-1" data-i18n="totalCost">Estimated Total</span>
+                        <span id="checkout-total" class="text-4xl text-arcadeyellow">SAR 0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full md:w-1/2 p-12 bg-panelbg relative flex flex-col justify-center">
+                <form id="checkout-form" class="space-y-6">
+                    <div>
+                        <label class="block text-[11px] font-bold font-tech text-zinc-400 uppercase tracking-widest mb-2" data-i18n="lblCompany">Company / Organization</label>
+                        <input type="text" id="cust-company" required class="input-field font-tech" placeholder="e.g. Acme Corp">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold font-tech text-zinc-400 uppercase tracking-widest mb-2" data-i18n="lblEmail">Contact Email</label>
+                        <input type="email" id="cust-email" required class="input-field font-tech" placeholder="email@company.com">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[11px] font-bold font-tech text-zinc-400 uppercase tracking-widest mb-2" data-i18n="lblDate">Preferred Event Date</label>
+                            <input type="date" id="cust-date" class="input-field font-tech">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold font-tech text-zinc-400 uppercase tracking-widest mb-2" data-i18n="lblHeadcount">Expected Headcount</label>
+                            <input type="number" id="cust-headcount" min="1" class="input-field font-tech" placeholder="e.g. 50">
+                        </div>
+                    </div>
+
+                    <div id="checkout-action-container"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- FIREBASE AND APP LOGIC -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, orderBy, query, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC_8RUItmr8GHEnjwt0pHtstAjQsx6PFHA",
+            authDomain: "smwebsite-0.firebaseapp.com",
+            projectId: "smwebsite-0",
+            storageBucket: "smwebsite-0.firebasestorage.app",
+            messagingSenderId: "750807172857",
+            appId: "1:750807172857:web:e36a69bbb7360679fb4428",
+            measurementId: "G-F46R6HJT0B"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const googleProvider = new GoogleAuthProvider();
+
+        let products = [];
+        let cart = [];
+        let currentUser = null;
+        let showPrices = true;
+        let currentCategory = 'All';
+        let currentLang = localStorage.getItem('appLang') || 'en';
+
+        const translations = {
+            en: {
+                chatWhatsapp: "Chat with Us",
+                navServices: "Services",
+                navHow: "How It Works",
+                navEvents: "Events",
+                btnLogin: "Login",
+                btnRegister: "Register",
+                btnLogout: "Logout",
+                buildBlueprint: "Plan Your Event",
+                heroTag: "Corporate Team Experiences",
+                heroTitle1: "The Event That",
+                heroTitle2: "Unites",
+                heroTitle3: "Your Team",
+                heroDesc: "We design team-building activities, digital tournaments, and hybrid events that bring your people together and build a stronger workplace culture.",
+                btnInitiate: "Get Started",
+                btnHowItWorks: "How It Works",
+                howTitle: "How It Works",
+                howSub: "From first message to event day, in three simple steps.",
+                howStep1Title: "Tell Us About Your Event",
+                howStep1Desc: "Share your headcount, date, and goals — corporate offsite, team celebration, or something else entirely.",
+                howStep2Title: "Pick Your Activities",
+                howStep2Desc: "Browse physical, digital, and team-building activities below and add the ones that fit to your plan.",
+                howStep3Title: "We Handle The Rest",
+                howStep3Desc: "Send your plan our way and our team takes care of setup, staffing, and delivery on the day.",
+                shopTitle1: "Activities Built",
+                shopTitle2: "To Bond Your Team",
+                shopSub: "Pick the activities that fit your event and add them to your plan. We'll take care of the rest.",
+                catAll: "All Activities",
+                catPhysical: "Physical",
+                catDigital: "Digital",
+                catTeamBuilding: "Team Building",
+                catChallenging: "Challenging",
+                catSolutions: "Solutions",
+                syncingDb: "Loading activities...",
+                cartTitle1: "Your",
+                cartTitle2: "Event Plan",
+                cartSub: "Selected Activities",
+                totalCost: "Estimated Total",
+                initCheckout: "Continue",
+                genTitle1: "Confirm Your",
+                genTitle2: "Selection",
+                genSub: "Review your chosen activities and send us your details to get a tailored quote.",
+                manifestSummary: "Order Summary",
+                lblCompany: "Company / Organization",
+                lblEmail: "Contact Email",
+                lblDate: "Preferred Event Date",
+                lblHeadcount: "Expected Headcount",
+                btnPdf: "Download PDF Summary",
+                btnWhatsapp: "Send Inquiry via WhatsApp",
+                ctaTitle: "Ready To Bring Your Team Together?",
+                ctaSub: "Tell us about your event and we'll help you build the right mix of activities.",
+                ctaBtn: "Start Planning"
+            },
+            ar: {
+                chatWhatsapp: "تواصل معنا عبر الواتساب",
+                navServices: "الخدمات",
+                navHow: "كيف نعمل",
+                navEvents: "الأنشطة والفعاليات",
+                btnLogin: "تسجيل الدخول",
+                btnRegister: "حساب جديد",
+                btnLogout: "خروج",
+                buildBlueprint: "خطط لفعاليتك",
+                heroTag: "تجارب مخصصة لفرق الشركات",
+                heroTitle1: "الفعالية التي",
+                heroTitle2: "تجمع",
+                heroTitle3: "فريقك",
+                heroDesc: "نصمم أنشطة بناء الفريق، والبطولات الرقمية، والفعاليات الهجينة التي تجمع فريقك وتعزز ثقافة العمل لديكم.",
+                btnInitiate: "ابدأ الآن",
+                btnHowItWorks: "كيف نعمل",
+                howTitle: "كيف نعمل",
+                howSub: "من أول رسالة إلى يوم الفعالية، في ثلاث خطوات بسيطة.",
+                howStep1Title: "أخبرنا عن فعاليتك",
+                howStep1Desc: "شاركنا عدد المشاركين والتاريخ والهدف من الفعالية، سواء كانت رحلة عمل أو احتفال فريق أو غير ذلك.",
+                howStep2Title: "اختر أنشطتك",
+                howStep2Desc: "تصفح الأنشطة البدنية والرقمية وأنشطة بناء الفريق أدناه وأضف المناسب منها إلى خطتك.",
+                howStep3Title: "نتكفل بالباقي",
+                howStep3Desc: "أرسل لنا خطتك ويتكفل فريقنا بالتجهيز والتنفيذ والتنسيق يوم الفعالية.",
+                shopTitle1: "أنشطة صممت",
+                shopTitle2: "لتوحيد فريقك",
+                shopSub: "اختر الأنشطة المناسبة لفعاليتك وأضفها إلى خطتك، ونحن نتكفل بالباقي.",
+                catAll: "جميع الأنشطة",
+                catPhysical: "بدنية (Physical)",
+                catDigital: "رقمية (Digital)",
+                catTeamBuilding: "بناء الفريق (Team Building)",
+                catChallenging: "تحديات (Challenging)",
+                catSolutions: "حلول متكاملة (Solutions)",
+                syncingDb: "جاري تحميل الأنشطة...",
+                cartTitle1: "خطة",
+                cartTitle2: "فعاليتك",
+                cartSub: "الأنشطة المختارة",
+                totalCost: "إجمالي التكلفة التقديرية",
+                initCheckout: "متابعة",
+                genTitle1: "تأكيد",
+                genTitle2: "اختيارك",
+                genSub: "راجع الأنشطة المختارة وأرسل بياناتك للحصول على عرض سعر مخصص.",
+                manifestSummary: "ملخص الطلب",
+                lblCompany: "اسم الشركة / الجهة",
+                lblEmail: "البريد الإلكتروني للتواصل",
+                lblDate: "التاريخ المفضل للفعالية",
+                lblHeadcount: "عدد المشاركين المتوقع",
+                btnPdf: "تحميل ملخص الفعالية (PDF)",
+                btnWhatsapp: "إرسال الاستفسار عبر الواتساب",
+                ctaTitle: "هل أنت مستعد لتوحيد فريقك؟",
+                ctaSub: "أخبرنا عن فعاليتك وسنساعدك في اختيار المزيج المناسب من الأنشطة.",
+                ctaBtn: "ابدأ التخطيط"
+            }
+        };
+
+        const DEFAULT_ACTIVITY_IMAGES = {
+            'Wooden Tower': 'https://images.unsplash.com/photo-1539477192933-1a7dde04aa77?auto=format&fit=crop&w=800&q=75',
+            'Pipeline': 'https://images.unsplash.com/photo-1752681304960-bd4e018a04bb?auto=format&fit=crop&w=800&q=75',
+            'Marshmallow Tower': 'https://images.unsplash.com/photo-1613549422147-9e4b76b4649b?auto=format&fit=crop&w=800&q=75',
+            'Traffic Jam': 'https://images.unsplash.com/photo-1775323137421-7f1e74b98e29?auto=format&fit=crop&w=800&q=75',
+            'Rug & Balls': 'https://images.unsplash.com/photo-1557734864-c78b6dfef1b1?auto=format&fit=crop&w=800&q=75',
+            'Tug of War': 'https://images.unsplash.com/photo-1748698534492-746f3950d9ca?auto=format&fit=crop&w=800&q=75',
+            'Hula Hoop Pass': 'https://images.unsplash.com/photo-1774599661329-d9a2f999d1c4?auto=format&fit=crop&w=800&q=75',
+            'Balls and Stick': 'https://images.unsplash.com/photo-1539345574544-27e5407b42aa?auto=format&fit=crop&w=800&q=75',
+            'Gold Mine': 'https://images.unsplash.com/photo-1761412105162-97f2f2d28407?auto=format&fit=crop&w=800&q=75',
+            'Mystery Box': 'https://images.unsplash.com/photo-1630397794907-a6574f227a3d?auto=format&fit=crop&w=800&q=75',
+            'XO Game (Tic-Tac-Toe Relay)': 'https://images.unsplash.com/photo-1768319184064-d39a6a196452?auto=format&fit=crop&w=800&q=75',
+            'Infinite Loop': 'https://images.unsplash.com/photo-1591195852446-b206db137197?auto=format&fit=crop&w=800&q=75',
+            'River Crossing': 'https://images.unsplash.com/photo-1597149560479-3c7d7b96d6bc?auto=format&fit=crop&w=800&q=75',
+            'Ball Control': 'https://images.unsplash.com/photo-1560272564-c83b66b1ad12?auto=format&fit=crop&w=800&q=75',
+            'The Catch': 'https://images.unsplash.com/photo-1520352408661-83957c1379d2?auto=format&fit=crop&w=800&q=75',
+            'MC Speaker (Arabic/English)': 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=75',
+            'Spin the Wheel': 'https://images.unsplash.com/photo-1573788583106-acf6c8f3f0b5?auto=format&fit=crop&w=800&q=75'
+        };
+
+        function getDefaultActivityImage(name) {
+            if (!name) return '';
+            const key = Object.keys(DEFAULT_ACTIVITY_IMAGES).find(k => k.toLowerCase() === name.toLowerCase());
+            return key ? DEFAULT_ACTIVITY_IMAGES[key] : '';
+        }
+
+        window.toggleLanguage = () => {
+            currentLang = currentLang === 'en' ? 'ar' : 'en';
+            localStorage.setItem('appLang', currentLang);
+            applyLanguage();
+        };
+
+        window.toggleMobileMenu = () => {
+            const menu = document.getElementById('mobile-menu');
+            const isHidden = menu.classList.contains('hidden');
+            menu.classList.toggle('hidden', !isHidden);
+            menu.classList.toggle('flex', isHidden);
+        };
+
+        window.closeMobileMenu = () => {
+            document.getElementById('mobile-menu').classList.add('hidden');
+            document.getElementById('mobile-menu').classList.remove('flex');
+        };
+
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.remove('hidden');
+            requestAnimationFrame(() => modal.classList.remove('opacity-0'));
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.add('opacity-0');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        function closeAuthModals() {
+            closeModal('login-modal');
+            closeModal('register-modal');
+        }
+
+        window.toggleLogin = () => {
+            const modal = document.getElementById('login-modal');
+            if (modal.classList.contains('hidden')) {
+                closeModal('register-modal');
+                openModal('login-modal');
+                window.closeMobileMenu();
+            } else {
+                closeModal('login-modal');
+            }
+        };
+
+        window.toggleRegister = () => {
+            const modal = document.getElementById('register-modal');
+            if (modal.classList.contains('hidden')) {
+                closeModal('login-modal');
+                openModal('register-modal');
+                window.closeMobileMenu();
+            } else {
+                closeModal('register-modal');
+            }
+        };
+
+        window.googleAuth = async () => {
+            try {
+                const result = await signInWithPopup(auth, googleProvider);
+                const user = result.user;
+                const userDocRef = doc(db, "users", user.uid);
+                const userDoc = await getDoc(userDocRef);
+                if (!userDoc.exists()) {
+                    await setDoc(userDocRef, { name: user.displayName || '', email: user.email || '', cart: [] });
+                }
+                closeAuthModals();
+            } catch (error) {
+                showToast(currentLang === 'ar' ? 'فشل تسجيل الدخول عبر Google' : 'Google sign-in failed. Please try again.');
+            }
+        };
+
+        window.logoutUser = async () => {
+            try { await signOut(auth); } catch (error) {}
+        };
+
+        function applyLanguage() {
+            const htmlRoot = document.getElementById('html-root');
+            htmlRoot.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+            htmlRoot.setAttribute('lang', currentLang);
+
+            document.getElementById('lang-btn-text').innerText = currentLang === 'ar' ? 'English' : 'العربية';
+            document.getElementById('lang-btn-text-mobile').innerText = currentLang === 'ar' ? 'English' : 'العربية';
+
+            const dict = translations[currentLang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) {
+                    el.innerText = dict[key];
+                }
+            });
+            renderProducts();
+            updateCartUI();
+        }
+
+        window.filterCategory = (cat) => {
+            currentCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.className = 'cat-btn px-6 py-3 bg-transparent text-zinc-400 hover:text-white font-tech font-bold text-xs rounded-lg uppercase tracking-widest transition-all';
+            });
+            const activeBtn = document.getElementById(`cat-btn-${cat.replace(/\s+/g, '-')}`);
+            if (activeBtn) {
+                activeBtn.className = 'cat-btn px-6 py-3 bg-arcadeyellow text-black font-tech font-bold text-xs rounded-lg uppercase tracking-widest transition-all shadow-sm';
+            }
+            renderProducts();
+        };
+
+        onSnapshot(doc(db, "settings", "globalConfig"), (docSnap) => {
+            if (docSnap.exists()) {
+                showPrices = docSnap.data().showPrices ?? true;
+            } else {
+                showPrices = true;
+            }
+            renderProducts();
+            updateCartUI();
+        });
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUser = user;
+                document.getElementById('auth-buttons').classList.add('hidden');
+                document.getElementById('user-profile').classList.remove('hidden');
+                document.getElementById('user-profile').classList.add('flex');
+                document.getElementById('auth-buttons-mobile').classList.add('hidden');
+                document.getElementById('user-profile-mobile').classList.remove('hidden');
+                document.getElementById('user-profile-mobile').classList.add('flex');
+
+                const userDocRef = doc(db, "users", user.uid);
+                const userDoc = await getDoc(userDocRef);
+                let displayName = user.displayName || "Agent";
+
+                if (userDoc.exists()) {
+                    const data = userDoc.data();
+                    if (data.name) displayName = data.name;
+                    if (data.cart && Array.isArray(data.cart)) {
+                        cart = data.cart;
+                        updateCartUI();
+                    }
+                    if (data.isAdmin === true) {
+                        document.getElementById('admin-dashboard-btn').classList.remove('hidden');
+                        document.getElementById('admin-dashboard-btn-mobile').classList.remove('hidden');
+                    }
+                }
+                document.getElementById('welcome-text').innerHTML = `<i class="fa-solid fa-user-astronaut me-2 text-zinc-400"></i> ${displayName.split(' ')[0]}`;
+                document.getElementById('welcome-text-mobile').innerHTML = `<i class="fa-solid fa-user-astronaut me-2 text-zinc-400"></i> ${displayName.split(' ')[0]}`;
+            } else {
+                currentUser = null;
+                document.getElementById('auth-buttons').classList.remove('hidden');
+                document.getElementById('user-profile').classList.add('hidden');
+                document.getElementById('admin-dashboard-btn').classList.add('hidden');
+                document.getElementById('auth-buttons-mobile').classList.remove('hidden');
+                document.getElementById('user-profile-mobile').classList.add('hidden');
+                document.getElementById('admin-dashboard-btn-mobile').classList.add('hidden');
+                cart = [];
+                updateCartUI();
+            }
+        });
+
+        async function syncCartToDB() {
+            if (currentUser) {
+                try {
+                    await setDoc(doc(db, "users", currentUser.uid), { cart: cart }, { merge: true });
+                } catch (error) {}
+            }
+        }
+
+        function injectItemListSchema() {
+            if (!products || products.length === 0) return;
+            const existing = document.getElementById('itemlist-schema');
+            if (existing) existing.remove();
+
+            const schema = {
+                "@context": "https://schema.org",
+                "@type": "ItemList",
+                "itemListElement": products.map((p, idx) => ({
+                    "@type": "ListItem",
+                    "position": idx + 1,
+                    "item": {
+                        "@type": "Service",
+                        "name": p.name || "Untitled Activity",
+                        "description": p.desc || undefined,
+                        "category": p.category || "Physical",
+                        "provider": { "@type": "Organization", "name": "SM Events" }
+                    }
+                }))
+            };
+
+            const script = document.createElement('script');
+            script.type = 'application/ld+json';
+            script.id = 'itemlist-schema';
+            script.textContent = JSON.stringify(schema);
+            document.head.appendChild(script);
+        }
+
+        async function fetchProducts() {
+            try {
+                const querySnapshot = await getDocs(collection(db, "activities"));
+                products = [];
+                querySnapshot.forEach((doc) => products.push({ id: doc.id, ...doc.data() }));
+
+                const spinner = document.getElementById('loading-spinner');
+                if (spinner) spinner.classList.add('hidden');
+
+                renderProducts();
+                injectItemListSchema();
+            } catch (error) {
+                console.error("Firestore Fetch Error:", error);
+                const spinner = document.getElementById('loading-spinner');
+                if (spinner) {
+                    spinner.innerHTML = `<span class="text-arcadered font-tech text-sm tracking-widest uppercase">ERR_CONNECTION_REFUSED: ${error.message}</span>`;
+                }
+            }
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('shop-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            if (!products || products.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-16 text-zinc-500 font-tech font-bold uppercase tracking-widest">${currentLang === 'ar' ? 'لا توجد أنشطة متاحة حالياً' : 'No activities available right now'}</div>`;
+                return;
+            }
+
+            const btnText = currentLang === 'ar' ? 'أضف إلى الخطة' : 'Add to Plan';
+
+            const filteredProducts = currentCategory === 'All'
+                ? products
+                : products.filter(p => (p.category || 'Physical').toLowerCase() === currentCategory.toLowerCase());
+
+            if (filteredProducts.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-16 text-zinc-500 font-tech font-bold uppercase tracking-widest">${currentLang === 'ar' ? 'لا توجد أنشطة متوفرة في هذا القسم حالياً' : 'No activities available in this category'}</div>`;
+                return;
+            }
+
+            filteredProducts.forEach((product) => {
+                const name = product.name || 'Untitled Activity';
+                const price = product.price || 0;
+                const icon = product.icon || 'fa-people-group';
+                const categoryTag = product.category || 'Physical';
+                const imageUrl = product.imageUrl || getDefaultActivityImage(name) || '';
+
+                let description = '';
+                if (currentLang === 'ar' && product.descAr && typeof product.descAr === 'string') {
+                    description = product.descAr;
+                } else if (product.desc && typeof product.desc === 'string') {
+                    description = product.desc;
+                } else {
+                    description = currentLang === 'ar' ? 'لا يوجد وصف متوفر.' : 'No description available.';
+                }
+
+                const safeName = name.replace(/'/g, "\\'");
+
+                let headerContent = (imageUrl && imageUrl.trim() !== "")
+                    ? `<div class="w-full h-44 overflow-hidden relative mb-4 rounded-lg border border-white/10">
+                           <img src="${imageUrl}" referrerpolicy="no-referrer" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out" alt="${name} team activity" loading="lazy">
+                       </div>`
+                    : `<div class="w-full h-36 bg-black/50 border border-white/10 rounded-lg flex items-center justify-center text-4xl text-arcadeyellow mb-4 shadow-inner">
+                           <i class="fa-solid ${icon}"></i>
+                       </div>`;
+
+                let priceBlock = showPrices ? `
+                    <div class="flex justify-between items-center mb-4 font-tech">
+                        <span class="text-[11px] text-zinc-400 uppercase tracking-wider">${currentLang === 'ar' ? 'التكلفة التقديرية' : 'Estimated Price'}</span>
+                        <span class="text-2xl font-bold text-white">SAR ${Number(price).toLocaleString()}</span>
+                    </div>` : '';
+
+                let html = `
+                    <div class="cyber-card rounded-2xl p-6 flex flex-col group relative overflow-hidden h-full">
+                        ${headerContent}
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[9px] font-tech font-semibold px-2 py-0.5 rounded bg-white/10 text-zinc-300 border border-white/10 uppercase tracking-wider">${categoryTag}</span>
+                        </div>
+                        <h3 class="text-2xl font-display font-bold text-white mb-2 leading-snug">${name}</h3>
+                        <p class="text-xs text-zinc-400 mb-6 flex-grow leading-relaxed font-sans">${description}</p>
+                        <div class="border-t border-white/10 pt-4 mt-auto relative z-20 pointer-events-auto">
+                            ${priceBlock}
+                            <button type="button"
+                                    onclick="window.addToCart('${safeName}', ${price}, event)"
+                                    class="w-full py-3.5 bg-arcadeyellow text-black font-tech font-bold text-sm uppercase tracking-wide clip-button hover:opacity-90 active:scale-95 transition-all cursor-pointer touch-manipulation">
+                                ${btnText}
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += html;
+            });
+        }
+
+        window.toggleCart = () => document.getElementById('cart-sidebar').classList.toggle('translate-x-full');
+
+        function showToast(msg) {
+            let toast = document.getElementById('toast-notice');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'toast-notice';
+                toast.className = 'fixed bottom-24 sm:bottom-6 left-1/2 -translate-x-1/2 z-[80] bg-arcadeyellow text-black font-tech font-bold text-xs uppercase tracking-widest px-6 py-3 rounded-full shadow-lg opacity-0 transition-opacity duration-300 pointer-events-none text-center max-w-[90vw]';
+                document.body.appendChild(toast);
+            }
+            toast.innerText = msg;
+            toast.classList.remove('opacity-0');
+            clearTimeout(window.__toastTimer);
+            window.__toastTimer = setTimeout(() => toast.classList.add('opacity-0'), 2800);
+        }
+
+        window.addToCart = (name, price, e) => {
+            if (!currentUser) {
+                showToast(currentLang === 'ar' ? 'الرجاء تسجيل الدخول لإضافة الأنشطة إلى خطتك' : 'Please sign in to add activities to your plan');
+                window.toggleLogin();
+                return;
+            }
+            cart.push({name, price});
+            updateCartUI();
+            syncCartToDB();
+            document.getElementById('cart-sidebar').classList.remove('translate-x-full');
+        };
+
+        window.removeItem = (index) => { cart.splice(index, 1); updateCartUI(); syncCartToDB(); };
+
+        function updateCartUI() {
+            document.getElementById('cart-count').innerText = cart.length;
+            const container = document.getElementById('cart-items');
+            if(!container) return;
+
+            const totalContainer = document.getElementById('cart-total-container');
+            if (showPrices) {
+                totalContainer.classList.remove('hidden');
+            } else {
+                totalContainer.classList.add('hidden');
+            }
+
+            if(cart.length === 0) {
+                container.innerHTML = `<div class="h-full flex flex-col items-center justify-center text-zinc-500 space-y-6 pt-24">
+                    <i class="fa-solid fa-cubes-stacked text-6xl opacity-20"></i>
+                    <p class="text-xs font-tech font-bold uppercase tracking-widest text-center leading-loose">${currentLang === 'ar' ? 'خطتك فارغة.<br>أضف بعض الأنشطة.' : 'Your plan is empty.<br>Add some activities.'}</p>
+                </div>`;
+                document.getElementById('cart-total').innerText = 'SAR 0';
+                return;
+            }
+            container.innerHTML = '';
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price;
+                let itemPriceDisplay = showPrices ? `<span class="text-xs text-arcadeyellow font-tech">SAR ${item.price.toLocaleString()}</span>` : '';
+                container.innerHTML += `
+                    <div class="p-4 bg-black/40 border border-white/10 rounded-lg flex items-center justify-between">
+                        <div>
+                            <span class="text-sm font-tech font-bold text-white uppercase mb-1 block">${item.name}</span>
+                            ${itemPriceDisplay}
+                        </div>
+                        <button onclick="window.removeItem(${index})" class="text-zinc-500 hover:text-arcadered transition-colors"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                `;
+            });
+            document.getElementById('cart-total').innerText = 'SAR ' + total.toLocaleString();
+        }
+
+        window.toggleCheckout = () => document.getElementById('checkout-modal').classList.toggle('hidden');
+
+        window.openCheckout = () => {
+            if (cart.length === 0) return;
+            document.getElementById('cart-sidebar').classList.add('translate-x-full');
+            const summary = document.getElementById('checkout-items');
+            const totalContainer = document.getElementById('checkout-total-container');
+            const actionContainer = document.getElementById('checkout-action-container');
+
+            let total = 0; summary.innerHTML = '';
+            cart.forEach(item => {
+                total += item.price;
+                let priceTag = showPrices ? `<span class="text-arcadeyellow">SAR ${item.price.toLocaleString()}</span>` : '';
+                summary.innerHTML += `
+                    <div class="flex justify-between items-center text-zinc-300 text-xs font-tech bg-black/40 p-3 rounded border border-white/5">
+                        <span class="uppercase font-bold">${item.name}</span>
+                        ${priceTag}
+                    </div>`;
+            });
+
+            if (showPrices) {
+                totalContainer.classList.remove('hidden');
+                document.getElementById('checkout-total').innerText = 'SAR ' + total.toLocaleString();
+                actionContainer.innerHTML = `
+                    <button type="submit" id="pay-btn" class="w-full mt-6 py-5 clip-button bg-arcadeyellow text-black font-bold font-tech text-base uppercase tracking-widest hover:opacity-90 transition-all flex items-center justify-center">
+                        <i class="fa-solid fa-file-pdf me-3 text-lg"></i> ${translations[currentLang].btnPdf}
+                    </button>`;
+            } else {
+                totalContainer.classList.add('hidden');
+                actionContainer.innerHTML = `
+                    <button type="submit" id="pay-btn" class="w-full mt-6 py-5 clip-button bg-[#25D366] text-black font-bold font-tech text-base uppercase tracking-widest hover:bg-[#128C7E] hover:text-white transition-all flex items-center justify-center">
+                        <i class="fa-brands fa-whatsapp me-3 text-2xl"></i> ${translations[currentLang].btnWhatsapp}
+                    </button>`;
+            }
+            window.toggleCheckout();
+        };
+
+        let jsPdfLoadPromise = null;
+        function loadJsPDF() {
+            if (window.jspdf) return Promise.resolve();
+            if (!jsPdfLoadPromise) {
+                jsPdfLoadPromise = new Promise((resolve, reject) => {
+                    const script = document.createElement('script');
+                    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+                    script.onload = resolve;
+                    script.onerror = reject;
+                    document.head.appendChild(script);
+                });
+            }
+            return jsPdfLoadPromise;
+        }
+
+        async function generateOrderPDF(company, email, items, eventDate, headcount) {
+            await loadJsPDF();
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.setFillColor(23, 23, 27);
+            doc.rect(0, 0, 210, 40, 'F');
+            doc.setTextColor(217, 164, 65);
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(22);
+            doc.text("SM EVENTS", 15, 25);
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(10);
+            doc.text("EVENT PLAN SUMMARY", 140, 25);
+            doc.setTextColor(20, 20, 20);
+            doc.setFontSize(11);
+            doc.setFont("helvetica", "bold");
+            doc.text("CLIENT DETAILS", 15, 52);
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(10);
+            let cy = 60;
+            doc.text(`Company: ${company}`, 15, cy); cy += 7;
+            doc.text(`Contact Email: ${email}`, 15, cy); cy += 7;
+            if (eventDate) { doc.text(`Preferred Event Date: ${eventDate}`, 15, cy); cy += 7; }
+            if (headcount) { doc.text(`Expected Headcount: ${headcount}`, 15, cy); cy += 7; }
+            doc.text(`Submitted: ${new Date().toLocaleDateString()}`, 15, cy); cy += 11;
+            doc.setFillColor(240, 240, 240);
+            doc.rect(15, cy, 180, 10, 'F');
+            doc.setFont("helvetica", "bold");
+            doc.text("Activity", 20, cy + 6);
+            doc.text("Price (SAR)", 160, cy + 6);
+            let y = cy + 18; let total = 0;
+            doc.setFont("helvetica", "normal");
+            items.forEach((item, idx) => {
+                doc.text(`${idx + 1}. ${item.name}`, 20, y);
+                doc.text(`${Number(item.price).toLocaleString()} SAR`, 160, y);
+                total += item.price; y += 8;
+            });
+            doc.setLineWidth(0.5); doc.line(15, y + 2, 195, y + 2);
+            y += 12; doc.setFont("helvetica", "bold"); doc.setFontSize(12);
+            doc.text("TOTAL ESTIMATED COST:", 20, y); doc.text(`${total.toLocaleString()} SAR`, 160, y);
+            y += 25; doc.setFillColor(248, 249, 250); doc.rect(15, y, 180, 45, 'F');
+            doc.setFontSize(11); doc.setTextColor(23, 23, 27);
+            doc.text("CONTACT US", 20, y + 10);
+            doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.setTextColor(60, 60, 60);
+            doc.text("Head of Operations: Salman Bin Mohammed", 20, y + 18);
+            doc.text("Phone 1: +966 57 009 8994", 20, y + 25);
+            doc.text("Phone 2: +966 57 069 7310", 20, y + 32);
+            doc.text("Email: s.e-for-activities@outlook.com", 20, y + 39);
+            doc.save(`SM_Events_Plan_${Date.now()}.pdf`);
+        }
+
+        function sendWhatsAppInquiry(company, email, items, eventDate, headcount) {
+            let msg = `*SM EVENTS - EVENT INQUIRY*\n\n`;
+            msg += `*Company:* ${company}\n`;
+            msg += `*Email:* ${email}\n`;
+            if (eventDate) msg += `*Preferred Event Date:* ${eventDate}\n`;
+            if (headcount) msg += `*Expected Headcount:* ${headcount}\n`;
+            msg += `\n*Selected Activities (${items.length}):*\n`;
+            items.forEach((item, idx) => msg += `${idx + 1}. ${item.name}\n`);
+            msg += `\nPlease provide us with pricing and availability for these activities.`;
+            window.open(`https://wa.me/966570098994?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const btn = document.getElementById('login-submit-btn');
+            btn.disabled = true;
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                e.target.reset();
+                closeAuthModals();
+            } catch (error) {
+                showToast(currentLang === 'ar' ? 'فشل تسجيل الدخول، تحقق من البيانات' : 'Login failed. Check your email and password.');
+            } finally {
+                btn.disabled = false;
+            }
+        });
+
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            const btn = document.getElementById('reg-submit-btn');
+            btn.disabled = true;
+            try {
+                const cred = await createUserWithEmailAndPassword(auth, email, password);
+                await setDoc(doc(db, "users", cred.user.uid), { name, email, cart: [] });
+                e.target.reset();
+                closeAuthModals();
+            } catch (error) {
+                showToast(currentLang === 'ar' ? 'فشل إنشاء الحساب' : 'Registration failed. Please try again.');
+            } finally {
+                btn.disabled = false;
+            }
+        });
+
+        document.getElementById('checkout-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const company = document.getElementById('cust-company').value;
+            const email = document.getElementById('cust-email').value;
+            const eventDate = document.getElementById('cust-date').value;
+            const headcount = document.getElementById('cust-headcount').value;
+            const orderItems = [...cart];
+            if (showPrices) { generateOrderPDF(company, email, orderItems, eventDate, headcount); }
+            else { sendWhatsAppInquiry(company, email, orderItems, eventDate, headcount); }
+            cart = []; updateCartUI(); syncCartToDB(); e.target.reset(); window.toggleCheckout();
+        });
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.scroll-reveal').forEach(el => revealObserver.observe(el));
+
+        document.getElementById('footer-year').innerText = new Date().getFullYear();
+        applyLanguage();
+        fetchProducts();
+    </script>
 </body>
 </html>
